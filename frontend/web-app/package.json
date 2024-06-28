@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "tidy": "npm run format && npm run lint --fix",
+    "predev": "npm run tidy",
     "dev": "next dev",
+    "postdev": "npm run tidy",
+    "prebuild": "npm run tidy",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write './**/*.{js,ts,jsx,tsx}' --log-level 'warn'",
-    "check": "prettier --check './**/*.{js,ts,jsx,tsx}' --log-level 'warn'",
+    "format": "npx prettier --write './**/*.{js,ts,jsx,tsx}' --log-level 'warn'",
+    "check": "npx prettier --check './**/*.{js,ts,jsx,tsx}' --log-level 'warn'",
     "prepare": "husky"
   },
   "dependencies": {
@@ -42,10 +46,10 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.7",
     "postcss": "^8",
-    "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
