@@ -1,15 +1,22 @@
-"use client";
+import Link from "next/link";
 
-import { CarFront } from "lucide-react";
-import Search from "./Search";
+import { getCurrentUser } from "@/app/actions/authActions";
+
+import LoginButton from "./LoginButton";
 import Logo from "./Logo";
+import SearchBar from "./Search";
+import UserActions from "./UserActions";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const user = await getCurrentUser();
+
   return (
-    <header className="sticky top-0 z-50 flex items-center justify-between p-5 text-base shadow-md text-foreground/60">
-      <Logo />
-      <Search />
-      <div>Login</div>
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 max-w-screen-2xl items-center gap-3">
+        <Logo />
+        <SearchBar />
+        {user ? <UserActions user={user} /> : <LoginButton />}
+      </div>
     </header>
   );
 }

@@ -1,15 +1,15 @@
 "use client";
 
-import { SearchIcon } from "lucide-react";
-import { Input } from "../UI/Input";
-import { Button } from "../UI/Button";
-import { useParamsStore } from "@/hooks/useParamsStore";
+import { Search } from "lucide-react";
 import { KeyboardEvent, useState } from "react";
 
-export default function Search() {
-  const setParams = useParamsStore(state => state.setParams);
-  const setSearchValue = useParamsStore(state => state.setSearchValue);
-  const searchValue = useParamsStore(state => state.searchValue);
+import { Input } from "@/components/UI/Input";
+import { useParamsStore } from "@/hooks/useParamsStore";
+
+export default function SearchBar() {
+  const setParams = useParamsStore((state) => state.setParams);
+  const setSearchValue = useParamsStore((state) => state.setSearchValue);
+  const searchValue = useParamsStore((state) => state.searchValue);
 
   function onChange(event: any) {
     setSearchValue(event.target.value);
@@ -20,24 +20,23 @@ export default function Search() {
   }
 
   return (
-    <div className="flex w-[50%] items-center py-2 justify-center">
-      <Input
-        type="text"
-        onKeyDown={(e: KeyboardEvent) => {
-          if (e.key == "Enter") {
-            search();
-          }
-        }}
-        value={searchValue}
-        onChange={onChange}
-        placeholder="Search for cars by make, model or color"
-        className="w-[40%] mr-2"
-      />
-      <Button
-        onClick={search}
-        variant="outline" size="icon">
-        <SearchIcon size={16} />
-      </Button>
-    </div>
+    <form className="ml-auto flex-1 sm:flex-initial">
+      <div className="relative">
+        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+        <Input
+          type="search"
+          className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+          onKeyDown={(e: KeyboardEvent) => {
+            if (e.key == "Enter") {
+              e.preventDefault();
+              search();
+            }
+          }}
+          value={searchValue}
+          onChange={onChange}
+          placeholder="Search..."
+        />
+      </div>
+    </form>
   );
 }

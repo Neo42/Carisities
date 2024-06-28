@@ -23,7 +23,7 @@ const initialState: State = {
   searchTerm: "",
   searchValue: "",
   orderBy: "make",
-  filterBy: "live"
+  filterBy: "live",
 };
 
 export const useParamsStore = createWithEqualityFn<State & Actions>()((set) => ({
@@ -40,5 +40,5 @@ export const useParamsStore = createWithEqualityFn<State & Actions>()((set) => (
 
   reset: () => set(initialState),
 
-  setSearchValue: (value: string) => set({ searchValue: value })
+  setSearchValue: (value: string) => set({ searchValue: value }),
 }));
