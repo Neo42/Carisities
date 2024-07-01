@@ -4,6 +4,7 @@ import { exec } from "node:child_process";
 import { rename } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+
 const __dirname =
   import.meta.dirname ?? dirname(fileURLToPath(import.meta.url));
 
