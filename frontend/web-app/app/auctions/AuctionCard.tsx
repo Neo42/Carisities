@@ -1,16 +1,17 @@
-import Image from "next/image";
+import Link from "next/link";
 
+import { Auction } from "../types";
 import CardImage from "./CardImage";
 import CountDownTimer from "./CountDownTimer";
 
 type Props = {
-  auction: any;
+  auction: Auction;
 };
 
 export default function AuctionCard({ auction }: Props) {
   return (
-    <a href="#" className="group">
-      <div className="aspect-h-10 aspect-w-16 w-full overflow-hidden rounded-lg bg-gray-200">
+    <Link href={`/auctions/details/${auction.id}`} className="group">
+      <div className="w-full overflow-hidden bg-gray-200 rounded-lg aspect-h-10 aspect-w-16">
         <div>
           <CardImage imageUrl={auction.imageUrl} />
           <div className="absolute bottom-2 left-2">
@@ -18,12 +19,11 @@ export default function AuctionCard({ auction }: Props) {
           </div>
         </div>
       </div>
-      <div className="mt-4 flex items-center justify-between">
-        <h3 className="text-base">
-          {auction.make} {auction.model}
+      <div className="flex items-center mt-4">
+        <h3>
+          {auction.make} {auction.model} {auction.year}
         </h3>
-        <p className="text-base font-semibold">{auction.year}</p>
       </div>
-    </a>
+    </Link>
   );
 }

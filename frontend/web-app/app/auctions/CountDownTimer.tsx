@@ -3,7 +3,7 @@
 import { CalendarCheck, Radio } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { Badge } from "@/components/UI/Badge";
+import { Badge } from "@/components/ui/Badge";
 
 type Props = {
   auctionEnd: string;
@@ -20,7 +20,9 @@ export default function CountDownTimer({ auctionEnd }: Props) {
       Auction Finished
     </Badge>
   ) : (
-    <Badge className="countdown " variant={days === 0 && hours < 10 ? "secondary" : "default"}>
+    <Badge
+      className="countdown "
+      variant={days === 0 && hours < 10 ? "secondary" : "default"}>
       <Radio size={16} className="mr-1 text-red-500" />
       <span style={{ "--value": days } as React.CSSProperties} />:
       <span style={{ "--value": hours } as React.CSSProperties} />:
@@ -33,7 +35,9 @@ export default function CountDownTimer({ auctionEnd }: Props) {
 const useCountdown = (targetDate: string) => {
   const countDownDate = new Date(targetDate).getTime();
 
-  const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());
+  const [countDown, setCountDown] = useState(
+    countDownDate - new Date().getTime(),
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,7 +53,9 @@ const useCountdown = (targetDate: string) => {
 const getReturnValues = (countDown: number) => {
   // calculate time left
   const days = Math.floor(countDown / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const hours = Math.floor(
+    (countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+  );
   const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
 

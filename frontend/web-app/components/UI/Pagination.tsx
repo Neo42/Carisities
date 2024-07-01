@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import * as React from "react";
 
-import { ButtonProps, buttonVariants } from "@/components/UI/Button";
+import { ButtonProps, buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -22,37 +22,46 @@ export default function AppPagination({
       <PaginationContent>
         {currentPage != 1 ? (
           <PaginationItem key="prev">
-            <PaginationPrevious href="#" onClick={() => onPageChange(currentPage - 1)} />
+            <PaginationPrevious
+              size="sm"
+              href="#"
+              onClick={() => onPageChange(currentPage - 1)}
+            />
           </PaginationItem>
         ) : null}
         {currentPage - pageRange > 1 ? (
           <PaginationItem key="prev-ellipsis">
-            <PaginationEllipsis />
+            <PaginationEllipsis className="h-9 w-9" />
           </PaginationItem>
         ) : null}
-        {Array.from({ length: pageCount }, (_, i) => i + 1).map((pageNumber) => {
-          const shouldShowPage =
-            pageNumber >= Math.max(0, currentPage - pageRange) &&
-            pageNumber <= currentPage + pageRange;
-          return shouldShowPage ? (
-            <PaginationItem key={pageNumber}>
-              <PaginationLink
-                href="#"
-                onClick={() => onPageChange(pageNumber)}
-                isActive={currentPage == pageNumber}>
-                {pageNumber}
-              </PaginationLink>
-            </PaginationItem>
-          ) : null;
-        })}
+        {Array.from({ length: pageCount }, (_, i) => i + 1).map(
+          (pageNumber) => {
+            const shouldShowPage =
+              pageNumber >= Math.max(0, currentPage - pageRange) &&
+              pageNumber <= currentPage + pageRange;
+            return shouldShowPage ? (
+              <PaginationItem key={pageNumber}>
+                <PaginationLink
+                  className="h-9 w-9"
+                  href="#"
+                  onClick={() => onPageChange(pageNumber)}
+                  isActive={currentPage == pageNumber}>
+                  {pageNumber}
+                </PaginationLink>
+              </PaginationItem>
+            ) : null;
+          },
+        )}
         {currentPage + pageRange < pageCount ? (
           <PaginationItem key="next-ellipsis">
-            <PaginationEllipsis />
+            <PaginationEllipsis className="h-9 w-9" />
           </PaginationItem>
         ) : null}
         {currentPage != pageCount ? (
-          <PaginationItem onClick={() => onPageChange(currentPage + 1)} key="next">
-            <PaginationNext href="#" />
+          <PaginationItem
+            onClick={() => onPageChange(currentPage + 1)}
+            key="next">
+            <PaginationNext href="#" size="sm" />
           </PaginationItem>
         ) : null}
       </PaginationContent>
@@ -70,16 +79,24 @@ const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
 );
 Pagination.displayName = "Pagination";
 
-const PaginationContent = React.forwardRef<HTMLUListElement, React.ComponentProps<"ul">>(
-  ({ className, ...props }, ref) => (
-    <ul ref={ref} className={cn("flex flex-row items-center gap-1", className)} {...props} />
-  ),
-);
+const PaginationContent = React.forwardRef<
+  HTMLUListElement,
+  React.ComponentProps<"ul">
+>(({ className, ...props }, ref) => (
+  <ul
+    ref={ref}
+    className={cn("flex flex-row items-center gap-1", className)}
+    {...props}
+  />
+));
 PaginationContent.displayName = "PaginationContent";
 
-const PaginationItem = React.forwardRef<HTMLLIElement, React.ComponentProps<"li">>(
-  ({ className, ...props }, ref) => <li ref={ref} className={cn("", className)} {...props} />,
-);
+const PaginationItem = React.forwardRef<
+  HTMLLIElement,
+  React.ComponentProps<"li">
+>(({ className, ...props }, ref) => (
+  <li ref={ref} className={cn("", className)} {...props} />
+));
 PaginationItem.displayName = "PaginationItem";
 
 type PaginationLinkProps = {
@@ -87,7 +104,12 @@ type PaginationLinkProps = {
 } & Pick<ButtonProps, "size"> &
   React.ComponentProps<"a">;
 
-const PaginationLink = ({ className, isActive, size = "icon", ...props }: PaginationLinkProps) => (
+const PaginationLink = ({
+  className,
+  isActive,
+  size = "icon",
+  ...props
+}: PaginationLinkProps) => (
   <a
     aria-current={isActive ? "page" : undefined}
     className={cn(
@@ -111,30 +133,34 @@ const PaginationPrevious = ({
     size="default"
     className={cn("gap-1 pl-2.5", className)}
     {...props}>
-    <ChevronLeft className="h-4 w-4" />
-    <span>Previous</span>
+    <ChevronLeft className="w-4 h-4" />
   </PaginationLink>
 );
 PaginationPrevious.displayName = "PaginationPrevious";
 
-const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
+const PaginationNext = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to next page"
     size="default"
     className={cn("gap-1 pr-2.5", className)}
     {...props}>
-    <span>Next</span>
-    <ChevronRight className="h-4 w-4" />
+    <ChevronRight className="w-4 h-4" />
   </PaginationLink>
 );
 PaginationNext.displayName = "PaginationNext";
 
-const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<"span">) => (
+const PaginationEllipsis = ({
+  className,
+  ...props
+}: React.ComponentProps<"span">) => (
   <span
     aria-hidden
     className={cn("flex h-9 w-9 items-center justify-center", className)}
     {...props}>
-    <MoreHorizontal className="h-4 w-4" />
+    <MoreHorizontal className="w-4 h-4" />
     <span className="sr-only">More pages</span>
   </span>
 );

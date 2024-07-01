@@ -18,7 +18,9 @@ export default function Logo() {
   }
 
   return (
-    <div onClick={doReset} className="flex items-center gap-2 font-bold cursor-pointer ">
+    <div
+      onClick={doReset}
+      className="flex items-center gap-2 font-bold cursor-pointer ">
       <CarFront size={25} />
       <div>Caristie&apos;s</div>
     </div>

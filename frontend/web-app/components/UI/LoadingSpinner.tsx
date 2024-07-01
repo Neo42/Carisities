@@ -9,10 +9,14 @@ interface LoadingSpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-const LoadingSpinner = React.forwardRef<HTMLDivElement, LoadingSpinnerProps>((props, ref) => {
-  const { className, ...rest } = props;
-  return <div ref={ref} className={cn(spinnerVariants, className)} {...rest} />;
-});
+const LoadingSpinner = React.forwardRef<HTMLDivElement, LoadingSpinnerProps>(
+  (props, ref) => {
+    const { className, ...rest } = props;
+    return (
+      <div ref={ref} className={cn(spinnerVariants, className)} {...rest} />
+    );
+  },
+);
 
 LoadingSpinner.displayName = "LoadingSpinner";
 

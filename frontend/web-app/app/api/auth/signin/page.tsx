@@ -1,6 +1,10 @@
-import EmptyFilter from "@/components/UI/EmptyFilter";
+import EmptyFilter from "@/components/ui/EmptyFilter";
 
-export default function Page({ searchParams }: { searchParams: { callbackUrl: string } }) {
+export default function Page({
+  searchParams,
+}: {
+  searchParams: { callbackUrl: string };
+}) {
   return (
     <EmptyFilter
       title="You need to be logged in to do that"

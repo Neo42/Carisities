@@ -1,13 +1,15 @@
 import { createWithEqualityFn } from "zustand/traditional";
 
-type State = {
+export type State = {
   pageNumber: number;
-  pageSize: number;
+  pageSize: 4 | 8 | 12;
   pageCount: number;
   searchTerm: string;
   searchValue: string;
-  orderBy: string;
-  filterBy: string;
+  orderBy: "make" | "endingSoon" | "new";
+  filterBy: "live" | "endingSoon" | "finished";
+  seller?: string;
+  winner?: string;
 };
 
 type Actions = {
@@ -24,21 +26,23 @@ const initialState: State = {
   searchValue: "",
   orderBy: "make",
   filterBy: "live",
+  seller: undefined,
+  winner: undefined,
 };
 
-export const useParamsStore = createWithEqualityFn<State & Actions>()((set) => ({
-  ...initialState,
-  setParams: (newParams: Partial<State>) => {
-    set((state) => {
-      if (newParams.pageNumber) {
-        return { ...state, pageNumber: newParams.pageNumber };
-      } else {
-        return { ...state, ...newParams, pageNumber: 1 };
-      }
-    });
-  },
-
-  reset: () => set(initialState),
-
-  setSearchValue: (value: string) => set({ searchValue: value }),
-}));
+export const useParamsStore = createWithEqualityFn<State & Actions>()(
+  (set) => ({
+    ...initialState,
+    setParams: (newParams: Partial<State>) => {
+      set((state) => {
+        if (newParams.pageNumber) {
+          return { ...state, pageNumber: newParams.pageNumber };
+        } else {
+          return { ...state, ...newParams, pageNumber: 1 };
+        }
+      });
+    },
+    reset: () => set(initialState),
+    setSearchValue: (value: string) => set({ searchValue: value }),
+  }),
+);

@@ -34,7 +34,10 @@ export default function EmptyFilter({
           </Button>
         )}
         {showLogin && (
-          <Button variant="default" onClick={() => signIn("id-server", { callbackUrl })}>
+          <Button
+            size="sm"
+            variant="default"
+            onClick={() => signIn("id-server", { callbackUrl })}>
             Login
           </Button>
         )}

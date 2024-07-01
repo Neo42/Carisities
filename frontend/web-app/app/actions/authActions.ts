@@ -12,7 +12,6 @@ export async function getSession() {
 export async function getCurrentUser() {
   try {
     const session = await getSession();
-    const token = await getTokenData();
 
     if (!session) return null;
 
